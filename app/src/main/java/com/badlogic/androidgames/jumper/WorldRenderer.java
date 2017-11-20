@@ -20,6 +20,8 @@ public class WorldRenderer {
 		this.glGraphics = glGraphics;
 		this.world = world;
 		this.cam = new Camera2D(glGraphics, FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
+		if (!Settings.gameDirectionUp)
+			this.cam.setPosition(this.world.bob.position.x, this.world.bob.position.y - this.cam.frustumHeight / 2 + this.world.bob.bounds.height * 2);
 		this.batcher = batcher;
 	}	
 

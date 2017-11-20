@@ -24,7 +24,7 @@ public class Bob extends DynamicGameObject {
 		stateTime = 0;
 		this.isUp = isUp;
 
-		if (isUp)
+		if (!isUp)
 		{
 			BOB_JUMP_VELOCITY = -BOB_JUMP_VELOCITY;
 			BOB_MOVE_VELOCITY = -BOB_MOVE_VELOCITY;
@@ -33,9 +33,8 @@ public class Bob extends DynamicGameObject {
 	
 	public void update(float deltaTime) {
 		velocity.add(World.gravity.x * deltaTime, World.gravity.y * deltaTime);
-		position.add(velocity.x * deltaTime, velocity.y * deltaTime);
+		position.add(-velocity.x * deltaTime, velocity.y * deltaTime);
 		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
-
 
 		if(velocity.y > 0 && state != BOB_STATE_HIT) {
 			if(state != BOB_STATE_JUMP) {
