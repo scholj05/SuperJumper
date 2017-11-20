@@ -1,5 +1,7 @@
 package com.badlogic.androidgames.framework.gl;
 
+import android.util.Log;
+
 import javax.microedition.khronos.opengles.GL10;
 
 import com.badlogic.androidgames.framework.impl.GLGraphics;
@@ -32,11 +34,18 @@ public class Camera2D {
 				1, -1);
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
+		Log.d("CAMERA", Float.toString(position.x) + ", " + Float.toString(position.y));
 	}
 
 	public void touchToWorld(Vector2 touch) {
 		touch.x = (touch.x / (float) glGraphics.getWidth()) * frustumWidth * zoom;
 		touch.y = (1 - touch.y / (float) glGraphics.getHeight()) * frustumHeight * zoom;
 		touch.add(position).sub(frustumWidth * zoom / 2, frustumHeight * zoom / 2);
+	}
+
+	public void setPosition(float positionX, float positionY)
+	{
+		position.x = positionX;
+		position.y = positionY;
 	}
 }

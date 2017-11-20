@@ -24,8 +24,16 @@ public class WorldRenderer {
 	}	
 
 	public void render() {
-		if(world.bob.position.y > cam.position.y )
-			cam.position.y = world.bob.position.y;
+		if (Settings.gameDirectionUp)
+		{
+			if(world.bob.position.y > cam.position.y )
+				cam.position.y = world.bob.position.y;
+		}
+		else
+		{
+			if(world.bob.position.y < cam.position.y )
+				cam.position.y = world.bob.position.y;
+		}
 		cam.setViewportAndMatrices();
 		renderBackground();
 		renderObjects();

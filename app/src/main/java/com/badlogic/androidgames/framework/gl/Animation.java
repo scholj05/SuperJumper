@@ -16,8 +16,8 @@ public class Animation {
 
 	public TextureRegion getKeyFrame(float stateTime, int mode) {
 		int frameNumber = (int)(stateTime / frameDuration);
-		Log.d("stateTime & frame", Float.toString(stateTime) + ", " + Float.toString(frameDuration));
-		Log.d("Animation frame", Integer.toString(frameNumber));
+		//Log.d("stateTime & frame", Float.toString(stateTime) + ", " + Float.toString(frameDuration));
+		//Log.d("Animation frame", Integer.toString(frameNumber));
 		if(mode == ANIMATION_NONLOOPING) {
 			frameNumber = Math.min(keyFrames.length-1, frameNumber);
 		} else {

@@ -1,5 +1,7 @@
 package com.badlogic.androidgames.jumper;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,7 +22,7 @@ public class World {
 	public static final int WORLD_STATE_RUNNING = 0;
 	public static final int WORLD_STATE_NEXT_LEVEL = 1;
 	public static final int WORLD_STATE_GAME_OVER = 2;
-	public static final Vector2 gravity = new Vector2(0, -12);
+	public static Vector2 gravity = new Vector2(0, -12);
 	
 	public final Bob bob;
 	public final List<Platform> platforms;
@@ -34,33 +36,34 @@ public class World {
 	public float heightSoFar;
 	public int score;
 	public int state;
-	
+
+
 	public World(WorldListener listener) {
-		this.bob = new Bob(5, 1);
+		gravity = (Settings.gameDirectionUp? new Vector2(0, -12): new Vector2(0, 12));
+		int bobY = (Settings.gameDirectionUp ? 1 : (int)WORLD_HEIGHT - 1);
+		this.bob = new Bob(5, bobY, Settings.gameDirectionUp);
 		this.platforms = new ArrayList<Platform>();
 		this.springs = new ArrayList<Spring>();
 		this.squirrels = new ArrayList<Squirrel>();
 		this.coins = new ArrayList<Coin>();
 		this.listener = listener;
 		rand = new Random();
-		generateLevel(true);
+		generateLevel();
 
 		this.heightSoFar = 0;
 		this.score = 0;
 		this.state = WORLD_STATE_RUNNING;
-	}
-
-	public void toggleDirection()
-	{
 
 	}
 	
-	private void generateLevel(boolean up) {
-		if (up)
+	private void generateLevel() {
+		int count = 0;
+		if (Settings.gameDirectionUp)
 		{
 			float y = Platform.PLATFORM_HEIGHT / 2;
 			float maxJumpHeight = Bob.BOB_JUMP_VELOCITY * Bob.BOB_JUMP_VELOCITY / (2 * -gravity.y);
 			while (y < WORLD_HEIGHT - WORLD_WIDTH / 2) {
+				count++;
 				int type = rand.nextFloat() > 0.8f ? Platform.PLATFORM_TYPE_MOVING : Platform.PLATFORM_TYPE_STATIC;
 				float x = rand.nextFloat() * (WORLD_WIDTH - Platform.PLATFORM_WIDTH) + Platform.PLATFORM_WIDTH / 2;
 
@@ -87,11 +90,48 @@ public class World {
 			}
 
 			castle = new Castle(WORLD_WIDTH / 2, y);
+			Log.d("COUNT", Integer.toString(count));
+		}
+		else
+		{
+			float y = Platform.PLATFORM_HEIGHT / 2;
+			float maxJumpHeight = Bob.BOB_JUMP_VELOCITY * Bob.BOB_JUMP_VELOCITY / (2 * gravity.y);
+			while (y < WORLD_HEIGHT - WORLD_WIDTH / 2) {
+				count++;
+				int type = rand.nextFloat() > 0.8f ? Platform.PLATFORM_TYPE_MOVING : Platform.PLATFORM_TYPE_STATIC;
+				float x = rand.nextFloat() * (WORLD_WIDTH - Platform.PLATFORM_WIDTH) + Platform.PLATFORM_WIDTH / 2;
+
+				Platform platform = new Platform(type, x, y);
+				platforms.add(platform);
+
+				if (rand.nextFloat() > 0.9f && type != Platform.PLATFORM_TYPE_MOVING) {
+					Spring spring = new Spring(platform.position.x, platform.position.y + Platform.PLATFORM_HEIGHT / 2 + Spring.SPRING_HEIGHT / 2);
+					springs.add(spring);
+				}
+
+				if (y < (WORLD_HEIGHT / 3 * 2) && rand.nextFloat() > 0.8f) {
+					Squirrel squirrel = new Squirrel(platform.position.x + rand.nextFloat(), platform.position.y + Squirrel.SQUIRREL_HEIGHT + rand.nextFloat() * 2);
+					squirrels.add(squirrel);
+				}
+
+				if (rand.nextFloat() > 0.6f) {
+					Coin coin = new Coin(platform.position.x + rand.nextFloat(), platform.position.y + Coin.COIN_HEIGHT + rand.nextFloat() * 3);
+					coins.add(coin);
+				}
+
+				y += (maxJumpHeight - 0.5f);
+				y -= rand.nextFloat() * (maxJumpHeight / 3);
+			}
+
+			castle = new Castle(WORLD_WIDTH / 2, 0.5f);
+			Log.d("COUNT", Integer.toString(count));
+
 		}
 
 	}
 
 	public void update(float deltaTime, float accelX) {
+
 		updateBob(deltaTime, accelX);
 		updatePlatforms(deltaTime);
 		updateSquirrels(deltaTime);
@@ -102,7 +142,9 @@ public class World {
 	}
 
 	private void updateBob(float deltaTime, float accelX) {
-		if (bob.state != Bob.BOB_STATE_HIT && bob.position.y <= 0.5f)
+		if (bob.state != Bob.BOB_STATE_HIT && bob.position.y <= 0.5f && Settings.gameDirectionUp)
+			bob.hitPlatform();
+		else if (bob.state != Bob.BOB_STATE_HIT && bob.position.y >= WORLD_HEIGHT - 0.5f && !Settings.gameDirectionUp)
 			bob.hitPlatform();
 		if (bob.state != Bob.BOB_STATE_HIT)
 			bob.velocity.x = -accelX / 10 * Bob.BOB_MOVE_VELOCITY;
@@ -147,13 +189,13 @@ public class World {
 	}
 	
 	private void checkPlatformCollisions() {
-		if (bob.velocity.y > 0)
+		if ((bob.velocity.y > 0 && Settings.gameDirectionUp) || (bob.velocity.y < 0 && !Settings.gameDirectionUp))
 			return;
 
 		int len = platforms.size();
 		for (int i = 0; i < len; i++) {
 			Platform platform = platforms.get(i);
-			if (bob.position.y > platform.position.y) {
+			if ((bob.position.y > platform.position.y && Settings.gameDirectionUp)|| (bob.position.y < platform.position.y && !Settings.gameDirectionUp)) {
 				if (OverlapTester.overlapRectangles(bob.bounds, platform.bounds)) {
 					bob.hitPlatform();
 					listener.jump();
@@ -164,6 +206,7 @@ public class World {
 				}
 			}
 		}
+
 	}
 
 	private void checkSquirrelCollisions() {
@@ -211,8 +254,16 @@ public class World {
 	}
 	
 	private void checkGameOver() {
-		if (heightSoFar - 7.5f > bob.position.y) {
+		if ((heightSoFar - 7.5f > bob.position.y && Settings.gameDirectionUp) || (heightSoFar + 7.5f < bob.position.y && !Settings.gameDirectionUp)) {
 			state = WORLD_STATE_GAME_OVER;
 		}
-	}	
+	}
+
+	public void clean()
+	{
+		platforms.clear();
+		springs.clear();
+		squirrels.clear();
+		coins.clear();
+	}
 }

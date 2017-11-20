@@ -1,6 +1,7 @@
 package com.badlogic.androidgames.jumper;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -63,6 +64,7 @@ public class GameScreen extends GLScreen {
 				Assets.playSound(Assets.coinSound);
 			}
 		};
+		//world = null;
 		world = new World(worldListener);
 		renderer = new WorldRenderer(glGraphics, batcher, world);
 		pauseBounds = new Rectangle(320- 64, 480- 64, 64, 64);	
@@ -172,6 +174,10 @@ public class GameScreen extends GLScreen {
 			TouchEvent event = touchEvents.get(i);
 			if(event.type != TouchEvent.TOUCH_UP)
 				continue;
+			world.clean();
+			world = null;
+			renderer = null;
+			System.gc();
 			world = new World(worldListener);
 			renderer = new WorldRenderer(glGraphics, batcher, world);
 			world.score = lastScore;
@@ -265,5 +271,16 @@ public class GameScreen extends GLScreen {
 
 	@Override
 	public void dispose() {
+		guiCam = null;
+		touchPoint = null;
+		batcher = null;
+		world = null;
+		worldListener = null;
+		renderer = null;
+		pauseBounds = null;
+		resumeBounds = null;
+		quitBounds = null;
+		scoreString = null;
+		fpsCounter = null;
 	}
 }

@@ -165,6 +165,7 @@ public abstract class GLGame extends Activity implements Game, Renderer {
 
 		this.screen.pause();
 		this.screen.dispose();
+		System.gc();
 		screen.resume();
 		screen.update(0);
 		this.screen = screen;			

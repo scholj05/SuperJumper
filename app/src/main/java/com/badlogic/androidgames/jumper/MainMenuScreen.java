@@ -85,7 +85,8 @@ public class MainMenuScreen extends GLScreen {
 				}
 				if(OverlapTester.pointInRectangle(upDownBounds, touchPoint)) {
 					Assets.playSound(Assets.clickSound);
-					Log.d("upDownToggle", "..................................");
+					Settings.gameDirectionUp = !Settings.gameDirectionUp;
+					Log.d("upDownToggle", Boolean.toString(Settings.gameDirectionUp));
 					return;
 				}
 				if(OverlapTester.pointInRectangle(genderBounds, touchPoint)) {
@@ -103,10 +104,7 @@ public class MainMenuScreen extends GLScreen {
 				}
 			}
 		}
-		//TODO:Bob animation instead of text-genders
-		//Log.d("TAG", Float.toString(deltaTime));
 		stateTime += deltaTime;
-		//Log.d("TAG2", Float.toString(stateTime));
 		stateTime = (stateTime >= 0.8f ? 0 : stateTime);
 
 	}
@@ -132,8 +130,8 @@ public class MainMenuScreen extends GLScreen {
 		batcher.drawSprite(160, 250, 300, 110, Assets.mainMenu);
 		batcher.drawSprite(160, 170, 187, 14, Assets.colourMode);
 		batcher.drawSprite(160, 145, 195, 14, Assets.blackWhite);
-		batcher.drawSprite(160, 121, 120, 14, Assets.upDown);
-		batcher.drawSprite(160, 56, 64, 64, Assets.bobJump.getKeyFrame(stateTime, Animation.ANIMATION_LOOPING));//TODO
+		batcher.drawSprite(160, 121, 68, 14, Settings.gameDirectionUp?Assets.up:Assets.down);
+		batcher.drawSprite(160, 56, 64, 64, Assets.bobFall.getKeyFrame(stateTime, Animation.ANIMATION_LOOPING));
 		batcher.drawSprite(160, 14, 120, 14, Assets.gender);
 		batcher.drawSprite(32, 32, 64, 64, Settings.soundEnabled?Assets.soundOn:Assets.soundOff);
 

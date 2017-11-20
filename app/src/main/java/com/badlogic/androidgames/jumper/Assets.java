@@ -20,7 +20,8 @@ public class Assets {
 	public static TextureRegion logo;
 	public static TextureRegion colourMode;
 	public static TextureRegion blackWhite;
-	public static TextureRegion upDown;
+	public static TextureRegion up;
+	public static TextureRegion down;
 
 	public static TextureRegion gender;
 	public static TextureRegion soundOn;
@@ -49,7 +50,7 @@ public class Assets {
 	public static boolean isColour, isLight;
 	private static int currentGender;
 	public static GLGame mGame;
-	
+
 	public static void load(GLGame game) {
 		isColour = true;
 		isLight = true;
@@ -113,7 +114,8 @@ public class Assets {
 		logo = new TextureRegion(items, 0, 352, 274, 142);
 		colourMode = new TextureRegion(items, 300, 352, 187, 14);
 		blackWhite = new TextureRegion(items, 296, 375, 195, 14);
-		upDown = new TextureRegion(items, 296, 396, 130, 14);
+		up = new TextureRegion(items, 279, 396, 68, 14);
+		down = new TextureRegion(items, 359, 396, 68, 14);
 		gender = new TextureRegion(items, 296, 417, 120, 14);
 
 		soundOff = new TextureRegion(items, 0, 0, 64, 64);
