@@ -33,7 +33,10 @@ public class Bob extends DynamicGameObject {
 	
 	public void update(float deltaTime) {
 		velocity.add(World.gravity.x * deltaTime, World.gravity.y * deltaTime);
-		position.add(-velocity.x * deltaTime, velocity.y * deltaTime);
+
+		if (Settings.gameDirectionUp) position.add(velocity.x * deltaTime, velocity.y * deltaTime);
+		else position.add(-velocity.x * deltaTime, velocity.y * deltaTime);
+
 		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
 
 		if(velocity.y > 0 && state != BOB_STATE_HIT) {

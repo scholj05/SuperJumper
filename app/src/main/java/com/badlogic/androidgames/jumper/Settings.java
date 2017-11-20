@@ -11,6 +11,7 @@ import com.badlogic.androidgames.framework.FileIO;
 public class Settings {
 	public static boolean soundEnabled = true;
 	public static boolean gameDirectionUp = true;
+	public static int levelsThisLife = 0;//TODO: onNextLevel increment, change platform jumps before crumble, # of springs etc.
 	public final static int[] highscores = new int[] { 100, 80, 50, 30, 10 };
 	public final static String file = ".superjumper";
 
@@ -23,9 +24,7 @@ public class Settings {
 				highscores[i] = Integer.parseInt(in.readLine());
 			}
 		} catch (IOException e) {
-			// デフォルト設定があるのでエラーは無視
 		} catch (NumberFormatException e) {
-			// 同上
 		} finally {
 			try {
 				if (in != null)

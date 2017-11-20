@@ -79,7 +79,9 @@ public class WorldRenderer {
 		}
 
 		float side = world.bob.velocity.x < 0? -1: 1;
-		batcher.drawSprite(world.bob.position.x, world.bob.position.y, side * 1, 1, keyFrame);
+
+		if (Settings.gameDirectionUp) batcher.drawSprite(world.bob.position.x, world.bob.position.y, side * 1, 1, keyFrame);
+		else batcher.drawSprite(world.bob.position.x, world.bob.position.y, side * 1, 1, 180, keyFrame);
 	}
 	
 	private void renderPlatforms() {
@@ -90,7 +92,10 @@ public class WorldRenderer {
 			if(platform.state == Platform.PLATFORM_STATE_PULVERIZING) {
 				keyFrame = Assets.brakingPlatform.getKeyFrame(platform.stateTime, Animation.ANIMATION_NONLOOPING);	
 			}
-			batcher.drawSprite(platform.position.x, platform.position.y, 2, 0.5f, keyFrame);
+			if (Settings.gameDirectionUp) batcher.drawSprite(platform.position.x, platform.position.y, 2, 0.5f, keyFrame);
+			else batcher.drawSprite(platform.position.x, platform.position.y, 2, 0.5f, 180, keyFrame);
+
+
 		}
 	}
 

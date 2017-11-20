@@ -241,7 +241,7 @@ public class World {
 		len = springs.size();
 		for (int i = 0; i < len; i++) {
 			Spring spring = springs.get(i);	
-			if ((bob.position.y > spring.position.y && Settings.gameDirectionUp) || (bob.velocity.y < spring.position.y && Settings.gameDirectionUp)) {
+			if ((bob.position.y > spring.position.y && Settings.gameDirectionUp) || (bob.velocity.y < spring.position.y && !Settings.gameDirectionUp)) {
 				if (OverlapTester.overlapRectangles(bob.bounds, spring.bounds)) {
 					bob.hitSpring();
 					listener.highJump();
