@@ -14,6 +14,9 @@ public class Settings {
 	public static int levelsThisLife = 0;//TODO: onNextLevel increment, change platform jumps before crumble, # of springs etc.
 	public final static int[] highscores = new int[] { 100, 80, 50, 30, 10 };
 	public final static String file = ".superjumper";
+	public static boolean isColour = true;
+	public static boolean isLight = false;
+	public static int currentGender = 0;
 
 	public static void load(FileIO files) {
 		BufferedReader in = null;
@@ -64,5 +67,24 @@ public class Settings {
 				break;
 			}
 		}
-	}			
+	}
+
+	public static void toggleColour()
+	{
+		isColour = !isColour;
+		Assets.loadTextures();
+	}
+
+	public static void toggleLight()
+	{
+		isLight = !isLight;
+		Assets.loadTextures();
+	}
+
+	public static void toggleGender()
+	{
+		currentGender = (++currentGender % 3);
+		Assets.loadTextures();
+	}
+
 }

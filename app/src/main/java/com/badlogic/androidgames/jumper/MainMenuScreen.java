@@ -75,12 +75,12 @@ public class MainMenuScreen extends GLScreen {
 				}
 				if(OverlapTester.pointInRectangle(lightDarkBounds, touchPoint)) {
 					Assets.playSound(Assets.clickSound);
-					Assets.toggleLight();
+					Settings.toggleLight();
 					return;
 				}
 				if(OverlapTester.pointInRectangle(blackWhiteBounds, touchPoint)) {
 					Assets.playSound(Assets.clickSound);
-					Assets.toggleColour();
+					Settings.toggleColour();
 					return;
 				}
 				if(OverlapTester.pointInRectangle(upDownBounds, touchPoint)) {
@@ -91,7 +91,7 @@ public class MainMenuScreen extends GLScreen {
 				}
 				if(OverlapTester.pointInRectangle(genderBounds, touchPoint)) {
 					Assets.playSound(Assets.clickSound);
-					Assets.toggleGender();
+					Settings.toggleGender();
 					return;
 				}
 				if(OverlapTester.pointInRectangle(soundBounds, touchPoint)) {
@@ -128,8 +128,8 @@ public class MainMenuScreen extends GLScreen {
 		
 		batcher.drawSprite(160, 480 - 10 - 71, 274, 142, Assets.logo);
 		batcher.drawSprite(160, 250, 300, 110, Assets.mainMenu);
-		batcher.drawSprite(160, 170, 187, 14, Assets.colourMode);
-		batcher.drawSprite(160, 145, 195, 14, Assets.blackWhite);
+		batcher.drawSprite(160, 170, 84, 14, Settings.isLight?Assets.colourLight:Assets.colourDark);
+		batcher.drawSprite(160, 145, 145, 14, Settings.isColour?Assets.coloured:Assets.blackWhite);
 		batcher.drawSprite(160, 121, 68, 14, Settings.gameDirectionUp?Assets.up:Assets.down);
 		batcher.drawSprite(160, 56, 64, 64, Assets.bobFall.getKeyFrame(stateTime, Animation.ANIMATION_LOOPING));
 		batcher.drawSprite(160, 14, 120, 14, Assets.gender);

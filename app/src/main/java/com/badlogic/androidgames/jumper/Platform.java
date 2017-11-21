@@ -15,6 +15,7 @@ public class Platform extends DynamicGameObject {
 	int type;
 	int state;
 	float stateTime;
+	int bounceCount;
 	
 	public Platform(int type, float x, float y) {
 		super(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
@@ -47,5 +48,14 @@ public class Platform extends DynamicGameObject {
 		state = PLATFORM_STATE_PULVERIZING;
 		stateTime = 0;
 		velocity.x = 0;
+	}
+
+	public void bounce()
+	{
+		bounceCount++;
+		if ((bounceCount == 1 && Settings.levelsThisLife > 1) || 	// if level 3, 1 bounce
+			(bounceCount == 2 && Settings.levelsThisLife == 1) ||	// if level 2, 2 bounces
+			(bounceCount == 3 && Settings.levelsThisLife == 0))		// if level 1, 3 bounces
+			pulverize();
 	}
 }

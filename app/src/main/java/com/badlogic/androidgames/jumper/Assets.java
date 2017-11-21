@@ -18,8 +18,10 @@ public class Assets {
 	public static TextureRegion gameOver;
 	public static TextureRegion highScoresRegion;
 	public static TextureRegion logo;
-	public static TextureRegion colourMode;
+	public static TextureRegion colourLight;
+	public static TextureRegion colourDark;
 	public static TextureRegion blackWhite;
+	public static TextureRegion coloured;
 	public static TextureRegion up;
 	public static TextureRegion down;
 
@@ -47,14 +49,10 @@ public class Assets {
 
 	public static Texture debug;
 	public static TextureRegion debugBox;
-	public static boolean isColour, isLight;
-	private static int currentGender;
 	public static GLGame mGame;
 
 	public static void load(GLGame game) {
-		isColour = true;
-		isLight = true;
-		currentGender = 0;
+
 		mGame = game;
 		loadTextures();
 
@@ -72,23 +70,23 @@ public class Assets {
 		clickSound = game.getAudio().newSound("click.ogg");
 	}
 
-	private static void loadTextures() {
+	public static void loadTextures() {
 		// set the background texture based on selected colour settings
-		if (isLight && isColour)
+		if (Settings.isLight && Settings.isColour)
 			background = new Texture(mGame, "backgroundLight.png");
-		else if (!isLight && isColour)
+		else if (!Settings.isLight && Settings.isColour)
 			background = new Texture(mGame, "backgroundDark.png");
-		else if (isLight && !isColour)
+		else if (Settings.isLight && !Settings.isColour)
 			background = new Texture(mGame, "backgroundLightBW.png");
 		else
 			background = new Texture(mGame, "backgroundDarkBW.png");
 		backgroundRegion = new TextureRegion(background, 0, 0, 320, 480);
 
-		if (isColour)
+		if (Settings.isColour)
 		{
-			if (currentGender == 0)//male
+			if (Settings.currentGender == 0)//male
 				items = new Texture(mGame, "items_m.png");
-			else if (currentGender == 1)//female
+			else if (Settings.currentGender == 1)//female
 				items = new Texture(mGame, "items_f.png");
 			else//neutral
 				items = new Texture(mGame, "items.png");
@@ -96,9 +94,9 @@ public class Assets {
 		}
 		else
 		{
-			if (currentGender == 0)//male
+			if (Settings.currentGender == 0)//male
 				items = new Texture(mGame, "items_m_bw.png");
-			else if (currentGender == 1)//female
+			else if (Settings.currentGender == 1)//female
 				items = new Texture(mGame, "items_f_bw.png");
 			else//neutral
 				items = new Texture(mGame, "items_bw.png");
@@ -112,8 +110,10 @@ public class Assets {
 		gameOver = new TextureRegion(items, 352, 256, 160, 96);
 		highScoresRegion = new TextureRegion(Assets.items, 0, 257, 300, 110 / 3);
 		logo = new TextureRegion(items, 0, 352, 274, 142);
-		colourMode = new TextureRegion(items, 300, 352, 187, 14);
-		blackWhite = new TextureRegion(items, 296, 375, 195, 14);
+		colourLight = new TextureRegion(items, 390, 352, 84, 14);
+		colourDark = new TextureRegion(items, 296, 352, 84, 14);
+		blackWhite = new TextureRegion(items, 296, 375, 144, 14);
+		coloured = new TextureRegion(items, 296, 478, 145, 14);
 		up = new TextureRegion(items, 279, 396, 68, 14);
 		down = new TextureRegion(items, 359, 396, 68, 14);
 		gender = new TextureRegion(items, 296, 417, 120, 14);
@@ -148,23 +148,7 @@ public class Assets {
 				new TextureRegion(items, 64, 208, 64, 16));
 	}
 
-	public static void toggleColour()
-	{
-		isColour = !isColour;
-		loadTextures();
-	}
 
-	public static void toggleLight()
-	{
-		isLight = !isLight;
-		loadTextures();
-	}
-
-	public static void toggleGender()
-	{
-		currentGender = (++currentGender % 3);
-		loadTextures();
-	}
 
 	public static void reload() {
 		background.reload();

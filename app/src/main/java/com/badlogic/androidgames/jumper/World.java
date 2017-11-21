@@ -200,11 +200,9 @@ public class World {
 			Platform platform = platforms.get(i);
 			if ((bob.position.y > platform.position.y && Settings.gameDirectionUp)|| (bob.position.y < platform.position.y && !Settings.gameDirectionUp)) {
 				if (OverlapTester.overlapRectangles(bob.bounds, platform.bounds)) {
+					platform.bounce();
 					bob.hitPlatform();
 					listener.jump();
-					if (rand.nextFloat() > 0.5f) {
-						platform.pulverize();
-					}
 					break;
 				}
 			}
@@ -253,12 +251,14 @@ public class World {
 	private void checkCastleCollisions() {
 		if (OverlapTester.overlapRectangles(castle.bounds, bob.bounds)) {
 			state = WORLD_STATE_NEXT_LEVEL;
+			Settings.levelsThisLife++;
 		}
 	}
 	
 	private void checkGameOver() {
 		if ((heightSoFar - 7.5f > bob.position.y && Settings.gameDirectionUp) || (heightSoFar + 7.5f < bob.position.y && !Settings.gameDirectionUp)) {
 			state = WORLD_STATE_GAME_OVER;
+			Settings.levelsThisLife = 0;
 		}
 	}
 
