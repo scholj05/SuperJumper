@@ -18,7 +18,7 @@ public class Settings {
 	public final static String file = ".superjumper";
 	public static boolean isColour = true;
 	public static boolean isLight = false;
-	public static int currentGender = 0;
+	public static int currentGender = 2;
 
 	public static void load(FileIO files) {
 		BufferedReader in = null;
