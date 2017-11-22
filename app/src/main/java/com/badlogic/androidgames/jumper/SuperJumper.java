@@ -24,6 +24,7 @@ public class SuperJumper extends GLGame {
 		} else {
 			Assets.reload();
 		}
+
 	}
 
 	@Override

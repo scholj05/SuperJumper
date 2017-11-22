@@ -26,7 +26,7 @@ public abstract class AndroidGame extends Activity implements Game {
 	FileIO fileIO;
 	Screen screen;
 	WakeLock wakeLock;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,6 +52,8 @@ public abstract class AndroidGame extends Activity implements Game {
 
 		PowerManager powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
 		wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "GLGame");
+
+
 	}	
 	
 	@Override
@@ -60,6 +62,7 @@ public abstract class AndroidGame extends Activity implements Game {
 		wakeLock.acquire();
 		screen.resume();
 		renderView.resume();
+
 	}
 	
 	@Override
@@ -68,7 +71,6 @@ public abstract class AndroidGame extends Activity implements Game {
 		wakeLock.release();
 		renderView.pause();
 		screen.pause();
-
 		if (isFinishing())
 			screen.dispose();
 	}

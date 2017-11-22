@@ -1,9 +1,13 @@
 package com.badlogic.androidgames.framework;
 
+import com.badlogic.androidgames.Logging.Data;
+
 public interface Game {
     public Input getInput();
     
     public FileIO getFileIO();
+
+    public Data getData();
     
     public Graphics getGraphics();
     

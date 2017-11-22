@@ -91,7 +91,6 @@ public class World {
 			}
 
 			castle = new Castle(WORLD_WIDTH / 2, y);
-			Log.d("COUNT", Integer.toString(count));
 		}
 		else
 		{
@@ -126,7 +125,6 @@ public class World {
 
 			castle = new Castle(WORLD_WIDTH / 2, 0.5f);
 			heightSoFar = y;
-			Log.d("COUNT", Integer.toString(count));
 
 		}
 
@@ -258,6 +256,7 @@ public class World {
 	private void checkGameOver() {
 		if ((heightSoFar - 7.5f > bob.position.y && Settings.gameDirectionUp) || (heightSoFar + 7.5f < bob.position.y && !Settings.gameDirectionUp)) {
 			state = WORLD_STATE_GAME_OVER;
+			Settings.lastLevelsThisLife = Settings.levelsThisLife;
 			Settings.levelsThisLife = 0;
 		}
 	}

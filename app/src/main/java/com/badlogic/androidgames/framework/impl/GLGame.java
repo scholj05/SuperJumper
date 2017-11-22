@@ -19,6 +19,7 @@ import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Graphics;
 import com.badlogic.androidgames.framework.Input;
 import com.badlogic.androidgames.framework.Screen;
+import com.badlogic.androidgames.Logging.Data;
 
 public abstract class GLGame extends Activity implements Game, Renderer {
 	enum GLGameState {
@@ -39,6 +40,8 @@ public abstract class GLGame extends Activity implements Game, Renderer {
 	Object stateChanged = new Object();
 	long startTime = System.nanoTime();
 	WakeLock wakeLock;
+	public Data data;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,12 +59,14 @@ public abstract class GLGame extends Activity implements Game, Renderer {
 		input = new AndroidInput(this, glView, 1, 1);
 		PowerManager powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
 		wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "GLGame");
+		data = new Data(this);
 	}
 	
 	public void onResume() {
 		super.onResume();
 		glView.onResume();
 		wakeLock.acquire();
+		data.start();
 	}
 	
 	@Override
@@ -129,6 +134,7 @@ public abstract class GLGame extends Activity implements Game, Renderer {
 				}
 			}
 		}
+		data.stop();
 		wakeLock.release();
 		glView.onPause();
 		super.onPause();
@@ -147,6 +153,9 @@ public abstract class GLGame extends Activity implements Game, Renderer {
 	public FileIO getFileIO() {
 		return fileIO;
 	}
+
+	@Override
+	public Data getData() { return data; }
 
 	@Override
 	public Graphics getGraphics() {

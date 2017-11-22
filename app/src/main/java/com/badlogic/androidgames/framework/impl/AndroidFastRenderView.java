@@ -52,7 +52,6 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
 					renderThread.join();
 					break;
 				} catch (InterruptedException e) {
-					// リトライ
 				}
 			}
 	}

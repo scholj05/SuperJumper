@@ -24,10 +24,14 @@ public class Bob extends DynamicGameObject {
 		stateTime = 0;
 		this.isUp = isUp;
 
-		if (!isUp)
+		if (!Settings.gameDirectionUp)
 		{
-			BOB_JUMP_VELOCITY = -BOB_JUMP_VELOCITY;
-			BOB_MOVE_VELOCITY = -BOB_MOVE_VELOCITY;
+			BOB_JUMP_VELOCITY = -(Math.abs(BOB_JUMP_VELOCITY));
+			BOB_MOVE_VELOCITY = -(Math.abs(BOB_MOVE_VELOCITY));
+		}else
+		{
+			BOB_JUMP_VELOCITY = Math.abs(BOB_JUMP_VELOCITY);
+			BOB_MOVE_VELOCITY = Math.abs(BOB_MOVE_VELOCITY);
 		}
 	}
 	

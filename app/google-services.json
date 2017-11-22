@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "953072301710",
+    "firebase_url": "https://androidjumpgame.firebaseio.com",
+    "project_id": "androidjumpgame",
+    "storage_bucket": "androidjumpgame.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953072301710:android:dbfc16ccef7fff8d",
+        "android_client_info": {
+          "package_name": "com.badlogic.androidgames.jumper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953072301710-458e4mah4a9sh4iqdknl9aceruh11rqn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.badlogic.androidgames.jumper",
+            "certificate_hash": "a1ad7bfeeb3f4d84d9f0474d991fbfa996886f7b"
+          }
+        },
+        {
+          "client_id": "953072301710-ulk3g32gj1sldua22f4latm19igiktek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADWBdpq-41u-ayVRMutcCqaUWZsfYU16c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953072301710-ulk3g32gj1sldua22f4latm19igiktek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

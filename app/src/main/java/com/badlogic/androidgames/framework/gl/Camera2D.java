@@ -34,7 +34,6 @@ public class Camera2D {
 				1, -1);
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
-		Log.d("CAMERA", Float.toString(position.x) + ", " + Float.toString(position.y));
 	}
 
 	public void touchToWorld(Vector2 touch) {

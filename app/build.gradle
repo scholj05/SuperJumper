@@ -1,19 +1,22 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion 19
     buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.badlogic.androidgames.jumper"
-        minSdkVersion 3
+        minSdkVersion 14
         targetSdkVersion 19
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
 }
+dependencies {
+    compile 'com.google.firebase:firebase-database:11.6.0'
+}
+apply plugin: 'com.google.gms.google-services'

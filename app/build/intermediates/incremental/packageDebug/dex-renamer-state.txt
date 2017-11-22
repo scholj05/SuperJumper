@@ -1,4 +1,0 @@
-#Thu Nov 09 21:52:46 NZDT 2017
-base.0=C\:\\Users\\Jesse\\AndroidStudioProjects\\GameResearch\\AndroidJumpGame\\androidjumpgame\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
-renamed.0=classes.dex
-file.0=C\:\\Users\\Jesse\\AndroidStudioProjects\\GameResearch\\AndroidJumpGame\\androidjumpgame\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

@@ -11,8 +11,10 @@ import com.badlogic.androidgames.framework.FileIO;
 public class Settings {
 	public static boolean soundEnabled = true;
 	public static boolean gameDirectionUp = true;
-	public static int levelsThisLife = 0;//TODO: onNextLevel increment, change platform jumps before crumble, # of springs etc.
-	public final static int[] highscores = new int[] { 100, 80, 50, 30, 10 };
+	public static int levelsThisLife = 0;
+	public static int lastLevelsThisLife = 0;
+	public static int lastScore = 0;
+	public final static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
 	public final static String file = ".superjumper";
 	public static boolean isColour = true;
 	public static boolean isLight = false;
@@ -59,6 +61,7 @@ public class Settings {
 	}
 
 	public static void addScore(int score) {
+		lastScore = score;
 		for(int i=0; i < 5; i++) {
 			if(highscores[i] < score) {
 				for(int j= 4; j > i; j--)

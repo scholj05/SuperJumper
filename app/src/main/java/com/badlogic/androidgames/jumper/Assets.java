@@ -24,6 +24,8 @@ public class Assets {
 	public static TextureRegion coloured;
 	public static TextureRegion up;
 	public static TextureRegion down;
+	public static TextureRegion left;
+	public static TextureRegion right;
 
 	public static TextureRegion gender;
 	public static TextureRegion soundOn;
@@ -120,7 +122,9 @@ public class Assets {
 
 		soundOff = new TextureRegion(items, 0, 0, 64, 64);
 		soundOn = new TextureRegion(items, 64, 0, 64, 64);
-		arrow = new TextureRegion(items, 0, 64, 64, 64);
+		arrow = new TextureRegion(items, 8, 83, 43, 25);
+		left = new TextureRegion(items, 9, 67, 9, 9);
+		right = new TextureRegion(items, 24, 67, 9, 9);
 		pause = new TextureRegion(items, 64, 64, 64, 64);
 
 		spring = new TextureRegion(items, 128, 0, 32, 32);

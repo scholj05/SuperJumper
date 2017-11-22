@@ -10,6 +10,7 @@ import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
 import com.badlogic.androidgames.framework.gl.FPSCounter;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
+import com.badlogic.androidgames.framework.impl.AndroidGame;
 import com.badlogic.androidgames.framework.impl.GLScreen;
 import com.badlogic.androidgames.framework.math.OverlapTester;
 import com.badlogic.androidgames.framework.math.Rectangle;
@@ -36,9 +37,11 @@ public class GameScreen extends GLScreen {
 	int lastScore;
 	String scoreString;
     FPSCounter fpsCounter;
+    Game game;
 	
 	public GameScreen(Game game) {
 		super(game);
+		this.game = game;
 		state = GAME_READY;
 		guiCam = new Camera2D(glGraphics, 320, 480);
 		touchPoint = new Vector2();
@@ -73,6 +76,7 @@ public class GameScreen extends GLScreen {
 		lastScore = 0;
 		scoreString = "score: 0";
 		fpsCounter = new FPSCounter();
+
 	}
 	
 	@Override
@@ -102,6 +106,7 @@ public class GameScreen extends GLScreen {
 	private void updateReady() {
 		if(game.getInput().getTouchEvents().size() > 0) {
 			state = GAME_RUNNING;
+			game.getData().newGame();
 		}
 	}
 	
@@ -161,6 +166,7 @@ public class GameScreen extends GLScreen {
 	
 			if(OverlapTester.pointInRectangle(quitBounds, touchPoint)) {
 				Assets.playSound(Assets.clickSound);
+				game.getData().endGame();
 				game.setScreen(new MainMenuScreen(game));
 				return;
 			}
@@ -194,6 +200,7 @@ public class GameScreen extends GLScreen {
 				continue;
 			game.setScreen(new MainMenuScreen(game));
 		}
+		game.getData().endGame();
 	}
 	
 	@Override
