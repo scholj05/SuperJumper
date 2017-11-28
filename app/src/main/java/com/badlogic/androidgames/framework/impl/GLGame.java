@@ -20,6 +20,7 @@ import com.badlogic.androidgames.framework.Graphics;
 import com.badlogic.androidgames.framework.Input;
 import com.badlogic.androidgames.framework.Screen;
 import com.badlogic.androidgames.Logging.Data;
+import com.badlogic.androidgames.jumper.Settings;
 
 public abstract class GLGame extends Activity implements Game, Renderer {
 	enum GLGameState {
@@ -135,6 +136,7 @@ public abstract class GLGame extends Activity implements Game, Renderer {
 			}
 		}
 		data.stop();
+		Settings.currentUser = "no one";
 		wakeLock.release();
 		glView.onPause();
 		super.onPause();
@@ -183,5 +185,11 @@ public abstract class GLGame extends Activity implements Game, Renderer {
 	@Override
 	public Screen getCurrentScreen() {
 		return screen;
+	}
+
+	@Override
+	public Context getContext()
+	{
+		return this;
 	}
 }

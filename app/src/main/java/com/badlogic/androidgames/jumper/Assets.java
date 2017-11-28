@@ -12,6 +12,9 @@ public class Assets {
 	public static Texture background;
 	public static TextureRegion backgroundRegion;
 	public static Texture items;
+	public static Texture items_extended;
+	public static TextureRegion login;
+	public static TextureRegion newUser;
 	public static TextureRegion mainMenu;
 	public static TextureRegion pauseMenu;
 	public static TextureRegion ready;
@@ -42,6 +45,7 @@ public class Assets {
 	public static TextureRegion platform;
 	public static Animation brakingPlatform;
 	public static Font font;
+	public static Font smallFont;
 	public static Music music;
 	public static Sound jumpSound;
 	public static Sound highJumpSound;
@@ -59,7 +63,7 @@ public class Assets {
 		loadTextures();
 
 		font = new Font(items, 224, 0, 16, 16, 20);	
-		
+		smallFont = new Font(items_extended, 226, 3, 16, 8, 10);
 		music = game.getAudio().newMusic("music.mp3");
 		music.setLooping(true);
 		music.setVolume(0.5f);
@@ -103,7 +107,9 @@ public class Assets {
 			else//neutral
 				items = new Texture(mGame, "items_bw.png");
 		}
-
+		items_extended = new Texture(mGame, "items_extended.png");
+		login = new TextureRegion(items_extended, 0, 0, 125, 14);
+		newUser = new TextureRegion(items_extended, 0, 20, 125, 14);
 		debug = new Texture(mGame, "debug.png");// texture for testing
 		debugBox = new TextureRegion(debug, 0, 0, 400, 400);// texture region for testing
 		mainMenu = new TextureRegion(items, 0, 224, 300, 110);

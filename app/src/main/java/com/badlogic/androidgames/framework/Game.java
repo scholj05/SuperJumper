@@ -1,5 +1,7 @@
 package com.badlogic.androidgames.framework;
 
+import android.content.Context;
+
 import com.badlogic.androidgames.Logging.Data;
 
 public interface Game {
@@ -18,4 +20,6 @@ public interface Game {
     public Screen getCurrentScreen();
     
     public Screen getStartScreen();
+
+    public Context getContext();
 }

@@ -14,7 +14,8 @@ import java.util.Set;
 public class GameData {
 
     private String gameStart;           // time of game being played
-    public String gameStop;             // time of game lost
+    private Date gameStartDate;         // temp value for internal use before stop
+    public String gameTime;             // time of game lost
     public String gameScore;            // score achieved this game
     public String levelsCompleted;      // levels completed this game
     public String colourMode;           // b/w vs coloured
@@ -34,12 +35,13 @@ public class GameData {
         if (genderInt == 0) gender = "male";
         else if (genderInt == 1) gender = "female";
         else gender = "neutral";
-        gameStart = getTime();
+        gameStart = getTimeAsString();
+        gameStartDate = getTime();
     }
 
     public void stop()
     {
-        gameStop = getTime();
+        gameTime = Long.toString((getTime().getTime() - gameStartDate.getTime()) / 1000);
         gameScore = Integer.toString(Settings.lastScore);
         levelsCompleted = Integer.toString(Settings.lastLevelsThisLife);
     }
@@ -49,9 +51,15 @@ public class GameData {
         return gameStart;
     }
 
-    private String getTime()
+    private String getTimeAsString()
     {
         Date date = new Date();
         return date.toString();
+    }
+
+    private Date getTime()
+    {
+        Date date = new Date();
+        return date;
     }
 }

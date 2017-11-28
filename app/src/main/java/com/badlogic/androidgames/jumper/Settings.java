@@ -19,6 +19,7 @@ public class Settings {
 	public static boolean isColour = true;
 	public static boolean isLight = false;
 	public static int currentGender = 2;
+	public static String currentUser = "no one";
 
 	public static void load(FileIO files) {
 		BufferedReader in = null;
@@ -88,6 +89,11 @@ public class Settings {
 	{
 		currentGender = (++currentGender % 3);
 		Assets.loadTextures();
+	}
+
+	public void setUser(String user)
+	{
+		currentUser = user;
 	}
 
 }

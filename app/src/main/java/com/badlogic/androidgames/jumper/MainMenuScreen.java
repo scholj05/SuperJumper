@@ -1,8 +1,10 @@
 package com.badlogic.androidgames.jumper;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -27,6 +29,7 @@ public class MainMenuScreen extends GLScreen {
 	Rectangle blackWhiteBounds;
 	Rectangle upDownBounds;
 	Rectangle genderBounds;
+	Rectangle userBounds;
 	Vector2 touchPoint;
 
 	float stateTime;
@@ -43,6 +46,7 @@ public class MainMenuScreen extends GLScreen {
 		blackWhiteBounds = new Rectangle(160 - 150, 145 - 10, 300, 20);
 		upDownBounds = new Rectangle(160 - 150, 120 - 10, 300, 20);
 		genderBounds = new Rectangle(160 - 50, 56 - 32, 100, 64);
+		userBounds = new Rectangle(0, 480 - 20, 320, 20);
 
 		touchPoint = new Vector2();
 	}
@@ -58,9 +62,26 @@ public class MainMenuScreen extends GLScreen {
 				touchPoint.set(event.x, event.y);
 				guiCam.touchToWorld(touchPoint);
 
+				if(OverlapTester.pointInRectangle(userBounds, touchPoint)) {
+					Assets.playSound(Assets.clickSound);
+					game.setScreen(new UserSelection(game));
+					return;
+				}
 				if(OverlapTester.pointInRectangle(playBounds, touchPoint)) {
 					Assets.playSound(Assets.clickSound);
-					game.setScreen(new GameScreen(game));
+					if (Settings.currentUser.equals("no one"))
+					{
+						game.setScreen(new UserSelection(game));
+						//TODO: run on ui thread v
+						glGame.runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								Toast.makeText(game.getContext(), "Please login before playing", Toast.LENGTH_LONG).show();
+							}
+						});
+					}
+					else
+						game.setScreen(new GameScreen(game));
 					return;
 				}
 				if(OverlapTester.pointInRectangle(highscoresBounds, touchPoint)) {
@@ -123,10 +144,15 @@ public class MainMenuScreen extends GLScreen {
 
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-		
+
+		String userString = "Logged in as " + Settings.currentUser;
+
+		batcher.beginBatch(Assets.items_extended);
+		Assets.smallFont.drawText(batcher, userString, 320 - (Assets.smallFont.glyphWidth * (userString.length() <= 39 ? userString.length() : 39)), 480 - Assets.smallFont.glyphHeight);
+		batcher.endBatch();
+
 		batcher.beginBatch(Assets.items);
-		
-		batcher.drawSprite(160, 480 - 10 - 71, 274, 142, Assets.logo);
+		batcher.drawSprite(160, 480 - 24 - 71, 274, 142, Assets.logo);
 		batcher.drawSprite(160, 250, 300, 110, Assets.mainMenu);
 		batcher.drawSprite(160, 170, 84, 14, Settings.isLight?Assets.colourLight:Assets.colourDark);
 		batcher.drawSprite(160, 145, 145, 14, Settings.isColour?Assets.coloured:Assets.blackWhite);
