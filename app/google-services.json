@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "953072301710",
-    "firebase_url": "https://androidjumpgame.firebaseio.com",
-    "project_id": "androidjumpgame",
-    "storage_bucket": "androidjumpgame.appspot.com"
+    "project_number": "38577057684",
+    "firebase_url": "https://unitecresearchgamesuperjumper.firebaseio.com",
+    "project_id": "unitecresearchgamesuperjumper",
+    "storage_bucket": "unitecresearchgamesuperjumper.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:953072301710:android:dbfc16ccef7fff8d",
+        "mobilesdk_app_id": "1:38577057684:android:200850324ed9ee84",
         "android_client_info": {
           "package_name": "com.badlogic.androidgames.jumper"
         }
       },
       "oauth_client": [
         {
-          "client_id": "953072301710-458e4mah4a9sh4iqdknl9aceruh11rqn.apps.googleusercontent.com",
+          "client_id": "38577057684-nnb5hj0oke00bddrvgvcoca6ju31eja8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.badlogic.androidgames.jumper",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "953072301710-ulk3g32gj1sldua22f4latm19igiktek.apps.googleusercontent.com",
+          "client_id": "38577057684-b4tive44c6mj43ubidukvbr0bisgu7o9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyADWBdpq-41u-ayVRMutcCqaUWZsfYU16c"
+          "current_key": "AIzaSyD7FRml4R2dtkxP0QkwUFs_SUt1fVxdYyg"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "953072301710-ulk3g32gj1sldua22f4latm19igiktek.apps.googleusercontent.com",
+              "client_id": "38577057684-b4tive44c6mj43ubidukvbr0bisgu7o9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

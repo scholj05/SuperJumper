@@ -62,8 +62,9 @@ public class Assets {
 		mGame = game;
 		loadTextures();
 
-		font = new Font(items, 224, 0, 16, 16, 20);	
+		font = new Font(items, 224, 0, 16, 16, 20);
 		smallFont = new Font(items_extended, 226, 3, 16, 8, 10);
+
 		music = game.getAudio().newMusic("music.mp3");
 		music.setLooping(true);
 		music.setVolume(0.5f);
@@ -77,6 +78,7 @@ public class Assets {
 	}
 
 	public static void loadTextures() {
+
 		// set the background texture based on selected colour settings
 		if (Settings.isLight && Settings.isColour)
 			background = new Texture(mGame, "backgroundLight.png");
@@ -156,6 +158,7 @@ public class Assets {
 				new TextureRegion(items, 64, 176, 64, 16),
 				new TextureRegion(items, 64, 192, 64, 16),
 				new TextureRegion(items, 64, 208, 64, 16));
+
 	}
 
 
@@ -163,6 +166,7 @@ public class Assets {
 	public static void reload() {
 		background.reload();
 		items.reload();
+		items_extended.reload();
 		if(Settings.soundEnabled)
 			music.play();
 	}

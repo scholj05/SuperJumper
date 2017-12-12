@@ -91,7 +91,6 @@ public class Data {
     private void upload()
     {
         userID = com.badlogic.androidgames.jumper.Settings.currentUser;
-        //reference.child(Long.toString(appStart)).child("app_close").setValue(Long.toString(appStop));
         for (GameData i : gameList)
         {
             reference.child("sessions").child(userID).child(appStart).child(i.gameKey()).setValue(i);

@@ -38,7 +38,7 @@ public class UserSelection extends GLScreen {
     float xOffset = 0;
     String textInput = "";
 
-    public UserSelection(Game game) {//TODO: alertDialog w/ text input for logins
+    public UserSelection(Game game) {
         super(game);
         this.game = game;
         guiCam = new Camera2D(glGraphics, 320, 480);
@@ -49,10 +49,6 @@ public class UserSelection extends GLScreen {
         touchPoint = new Vector2();
         batcher = new SpriteBatcher(glGraphics, 100);
         xOffset = 160 - xOffset / 2 + Assets.font.glyphWidth / 2;
-
-
-
-
     }
 
     @Override
@@ -103,14 +99,6 @@ public class UserSelection extends GLScreen {
         batcher.endBatch();
 
         batcher.beginBatch(Assets.items);
-        //batcher.drawSprite(160, 360, 300, 33, Assets.highScoresRegion);
-
-//        float y = 240;
-//        for(int i = 4; i >= 0; i--) {
-//            Assets.font.drawText(batcher, highScores[i], xOffset, y);
-//            y += Assets.font.glyphHeight;
-//        }
-
         batcher.drawSprite(32, 32, 64, 64, Assets.arrow);
         batcher.endBatch();
 

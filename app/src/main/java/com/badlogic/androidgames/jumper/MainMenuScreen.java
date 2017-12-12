@@ -72,7 +72,6 @@ public class MainMenuScreen extends GLScreen {
 					if (Settings.currentUser.equals("no one"))
 					{
 						game.setScreen(new UserSelection(game));
-						//TODO: run on ui thread v
 						glGame.runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
